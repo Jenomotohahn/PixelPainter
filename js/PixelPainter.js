@@ -5,6 +5,7 @@ const arrColors = ['purple','red','blue','green', 'brown', 'orange', 'yellow', '
 
 //Aray for available shapes stored in ShapeToolbox.
 const arrShapes = ['square']
+const stampShape = {square:[[-1,-1], [0,1], [1,-1], [1,0], [1,1], [0,1], [-1,1],[-1,0]]};
 
 //Changing variables which help the EventListeners.
 let mouseClick = false;
@@ -107,12 +108,11 @@ const createCanvas = function(irow, icol){
     gridDiv.appendChild(tbl);
     for(let i = 0; i < irow; i++){
         let tabler = tbl.appendChild(document.createElement('tr'))
-        tabler.id = i;
         
         for(let x = 0; x < icol; x++){
            let cell = tabler.appendChild(document.createElement('td'))
            cell.className = 'cell';
-           cell.id = x;
+           cell.id = x
            cell.addEventListener('click', initiateBC);
            cell.addEventListener('mouseover', drawBC);
         }
@@ -126,7 +126,16 @@ const drawBC = function(){
     }
 };
 
+
+
 const initiateBC = function (){
+    let currCoord = this.id;
+    let coordArr = currCoord.split('y');
+    coordArr[0] = parseInt(coordArr[0].replace('x',''));
+    coordArr[1] = parseInt(coordArr[1]);
+    console.log(coordArr);
+
+
     if(currShape === ''){
         if(mouseClick === true){
             mouseClick = false;
@@ -136,7 +145,9 @@ const initiateBC = function (){
         }
     }else{
         if(currShape === 'square'){
-            console.log('hello');
+
+
+            
             console.log(currShape);
             currCellId = parseInt(this.id);
             currRowId = parseInt(this.parentNode.id);
@@ -184,6 +195,7 @@ function clrTbl(){
 
 function saveArt(){
     saveFile = document.getElementById('grid').innerHTML;
+    console.log(saveFile);
 };
 
 
